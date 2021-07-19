@@ -43,5 +43,4 @@ class TestMovieAPI(APITestCase):
 
     def test_delete_movie(self):
         response = self.client.delete(reverse('detail', kwargs={'pk':self.movie.id}))
-        self.movie.refresh_from_db()
         self.assertEqual(response.status_code, 204)
