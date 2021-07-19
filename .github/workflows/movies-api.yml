@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      ALLOWED_HOSTS: ['127.0.0.1',]
+      ALLOWED_HOSTS: localhost
       SECRET_KEY: gh-action-insecure-l^5$9ard(^-h0m+(^rw(58u#2p3(7s*yk6r2#+eiutn^%p)m%@
       DJANGO_SETTINGS_MODULE: movies.settings.gh-actions
     
