@@ -30,12 +30,14 @@ class TestMovieAPI(APITestCase):
         self.assertEqual(len(response.data), 1)
 
     def test_update_movie(self):
+        
         movie = Movie.objects.first()
         response = self.client.put(reverse('detail', kwargs={'pk':movie.id}), {
             'name': 'The Space Between Us Updated',
             'year_of_release': 2017
         }, format='json')
 
+        # The object's updated value needs to be reloaded from the database.
         movie.refresh_from_db()
     
         # check if movie was updated
