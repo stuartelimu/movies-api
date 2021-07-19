@@ -17,6 +17,8 @@ class TestMovieAPI(APITestCase):
             'year_of_release': 2007
         })
 
+        print(self.movie)
+
         # asert the movie was created 
         self.assertEqual(Movie.objects.count(), 2)
 
@@ -28,7 +30,8 @@ class TestMovieAPI(APITestCase):
         self.assertEqual(len(response.data), 1)
 
     def test_update_movie(self):
-        movie = Movie.objects.get(id=1)
+        movie = Movie.objects.first()
+        print(movie)
         response = self.client.put(reverse('detail', kwargs={'pk':movie.id}), {
             'name': 'The Space Between Us Updated',
             'year_of_release': 2017
