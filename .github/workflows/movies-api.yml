@@ -14,6 +14,18 @@ jobs:
       ALLOWED_HOSTS: localhost
       SECRET_KEY: gh-action-insecure-l^5$9ard(^-h0m+(^rw(58u#2p3(7s*yk6r2#+eiutn^%p)m%@
       DJANGO_SETTINGS_MODULE: movies.settings.gh-actions
+
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     
 
     steps:
@@ -26,6 +38,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Run Migrations
+      run: |
+        python manage.py migrate
     - name: Run Tests
       run: |
         python manage.py test
