@@ -31,7 +31,6 @@ class TestMovieAPI(APITestCase):
 
     def test_update_movie(self):
         movie = Movie.objects.first()
-        print(movie)
         response = self.client.put(reverse('detail', kwargs={'pk':movie.id}), {
             'name': 'The Space Between Us Updated',
             'year_of_release': 2017
@@ -43,5 +42,6 @@ class TestMovieAPI(APITestCase):
         self.assertEqual(response.data['name'], 'The Space Between Us Updated')
 
     def test_delete_movie(self):
-        response = self.client.delete(reverse('detail', kwargs={'pk':1}))
+        response = self.client.delete(reverse('detail', kwargs={'pk':self.movie.id}))
+        self.movie.refresh_from_db()
         self.assertEqual(response.status_code, 204)
